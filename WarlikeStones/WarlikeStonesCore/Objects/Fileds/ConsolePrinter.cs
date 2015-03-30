@@ -19,7 +19,7 @@ namespace WarlikeStonesCore.Objects.Fileds
          {
             for (int k = 0; k < gameField.sizeY; k++)
             {
-               System.Console.Write(gameField.stones[i, k].TypeStone.ToString() + " ");
+               System.Console.Write(gameField.stones[i, k].Selected ? gameField.stones[i, k].TypeStone.ToString().ToUpper() : gameField.stones[i, k].TypeStone.ToString() + " ");
             }
             System.Console.WriteLine();
          }

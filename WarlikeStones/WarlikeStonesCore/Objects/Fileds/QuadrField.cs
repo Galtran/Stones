@@ -32,6 +32,9 @@ namespace WarlikeStonesCore.Objects.Fileds
          if( stone.Selected )
             return false;
 
+         if (selectStones.Count == 0)
+            return true;
+
          QuadrStone q_stone = (QuadrStone)stone;
          QuadrStone last_select_stone = (QuadrStone)selectStones[selectStones.Count - 1];
          if (Math.Abs(q_stone.X - last_select_stone.X) == 1 && Math.Abs(q_stone.Y - last_select_stone.Y) == 1)
@@ -75,6 +78,5 @@ namespace WarlikeStonesCore.Objects.Fileds
 
          return count;
       }
-
    }
 }

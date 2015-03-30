@@ -41,6 +41,13 @@ namespace WarlikeStonesCore.Objects.Fileds
          selectStones.Add(stone);
       }
 
+      //Выделить камень, только если это возможно
+      virtual public void SafeSelectStone(Stone stone)
+      {
+         if (CanSelectStone(stone))
+            SelectStone(stone);
+      }
+
       //Снять выделение
       virtual public void DeselectStone(Stone stone)
       {
