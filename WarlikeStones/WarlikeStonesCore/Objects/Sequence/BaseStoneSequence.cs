@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WarlikeStonesCore.Objects.Sequence
 {
-   abstract class BaseStoneSequence
+   public abstract class BaseStoneSequence
    {
       //Сгенерировать последовательность камней
       abstract public bool Generate();
@@ -19,5 +19,22 @@ namespace WarlikeStonesCore.Objects.Sequence
       //Удалить камни в начале последовательности, последовательность дополняется в конце на удаленное количество
       abstract public bool DeleteStones(int count);
       abstract public bool DeleteStones(List<Stone> del_stones);
+
+      //получить очередной камень последовательности
+      abstract public Stone GetNextStone();
+
+      //скинуть текущий камень последовательности в нулевой
+      virtual public void ResetNextStone()
+      {
+         curStoneCount = 0;
+      }
+
+      //Убавить на 1 текущий камень последовательности
+      virtual public void ReduceByOneNextStone()
+      {
+         curStoneCount = (curStoneCount > 0 ? curStoneCount - 1 : 0);
+      }
+
+      protected int curStoneCount;
    }
 }

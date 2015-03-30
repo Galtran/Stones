@@ -37,7 +37,7 @@ namespace WarlikeStonesCore.Objects.Fileds
 
          QuadrStone q_stone = (QuadrStone)stone;
          QuadrStone last_select_stone = (QuadrStone)selectStones[selectStones.Count - 1];
-         if (Math.Abs(q_stone.X - last_select_stone.X) == 1 && Math.Abs(q_stone.Y - last_select_stone.Y) == 1)
+         if (Math.Abs(q_stone.X - last_select_stone.X) <= 1 && Math.Abs(q_stone.Y - last_select_stone.Y) <= 1)
             return true;
 
          return false;
@@ -46,13 +46,11 @@ namespace WarlikeStonesCore.Objects.Fileds
 
       public override bool RandomFillField()
       {
-         Random rnd = new Random();
          for (int i = 0; i < sizeX; i++)
             for (int k = 0; k < sizeY; k++)
             {
-               Stone new_stone = ObjectUtils.GenerateRandomStone(rnd);
+               Stone new_stone = ObjectUtils.GenerateRandomStone(Constants.rnd);
                stones[i, k] = new QuadrStone(new_stone.TypeStone, i, k);
-               //Console.Write(new_stone.TypeStone.ToString());
             }
 
          return true;
@@ -66,12 +64,11 @@ namespace WarlikeStonesCore.Objects.Fileds
       public override int DeleteSelectStones()
       {
          int count = selectStones.Count;
-         Random rnd = new Random();
          foreach (var item in selectStones)
          {
             QuadrStone tmp_stone = (QuadrStone)item;
 
-            Stone new_stone = ObjectUtils.GenerateRandomStone(rnd);
+            Stone new_stone = ObjectUtils.GenerateRandomStone(Constants.rnd);
             stones[tmp_stone.X, tmp_stone.Y] = new QuadrStone(new_stone.TypeStone, tmp_stone.X, tmp_stone.Y);
          }
          selectStones.Clear();

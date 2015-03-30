@@ -6,7 +6,7 @@ using WarlikeStonesCore.Utils;
 
 namespace WarlikeStonesCore.Objects.Sequence
 {
-   class SimpleListSequence : BaseStoneSequence
+   public class SimpleListSequence : BaseStoneSequence
    {
       List<Stone> stones;
 
@@ -17,9 +17,8 @@ namespace WarlikeStonesCore.Objects.Sequence
 
       public override bool Generate()
       {
-         Random rnd = new Random();
          for (int i = 0; i < Constants.SimpleListSequenceCount; i++)
-            stones.Add(ObjectUtils.GenerateRandomStone(rnd));
+            stones.Add(ObjectUtils.GenerateRandomStone(Constants.rnd));
 
          return true;
       }
@@ -52,6 +51,9 @@ namespace WarlikeStonesCore.Objects.Sequence
             throw new Exception("В последовательности нет столько камней, сколько просят удалить!");
 
          stones.RemoveRange(0, count);
+
+         curStoneCount = 0;
+
          return true;
       }
 
@@ -60,7 +62,20 @@ namespace WarlikeStonesCore.Objects.Sequence
          foreach (var item in del_stones)
             stones.Remove(item);
 
+         curStoneCount = 0;
+
          return true;
+      }
+
+      public override Stone GetNextStone()
+      {
+         if( stones.Count > curStoneCount )
+         {
+            curStoneCount++;
+            return stones[curStoneCount - 1];
+         }
+
+         return null;
       }
    }
 }

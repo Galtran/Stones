@@ -23,5 +23,7 @@ namespace WarlikeStonesCore.Objects
       public static int SimpleListSequenceCount = 20;
       //Минимальное число камней, которые можно удалить в данной последовательности
       public static int SimpleListSequenceMinCountCombination = 3;
+
+      public static Random rnd = new Random();
    }
 }
