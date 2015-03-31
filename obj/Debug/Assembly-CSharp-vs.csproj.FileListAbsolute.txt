@@ -1,0 +1,13 @@
+H:\MyProjects\Unity\StoneGame\Temp\bin\Debug\Assembly-CSharp.dll
+H:\MyProjects\Unity\StoneGame\Temp\bin\Debug\Assembly-CSharp.pdb
+H:\MyProjects\Unity\StoneGame\Temp\bin\Debug\UnityEditor.dll
+H:\MyProjects\Unity\StoneGame\Temp\bin\Debug\UnityEngine.dll
+H:\MyProjects\Unity\StoneGame\Temp\bin\Debug\UnityEngine.UI.dll
+H:\MyProjects\Unity\StoneGame\Temp\bin\Debug\Mono.Cecil.dll
+H:\MyProjects\Unity\StoneGame\Temp\bin\Debug\nunit.framework.dll
+H:\MyProjects\Unity\StoneGame\Temp\bin\Debug\Unity.DataContract.dll
+H:\MyProjects\Unity\StoneGame\Temp\bin\Debug\ICSharpCode.NRefactory.dll
+H:\MyProjects\Unity\StoneGame\obj\Debug\Assembly-CSharp-vs.csprojResolveAssemblyReference.cache
+H:\MyProjects\Unity\StoneGame\obj\Debug\Assembly-CSharp.dll
+H:\MyProjects\Unity\StoneGame\obj\Debug\Assembly-CSharp.pdb
+H:\MyProjects\Unity\StoneGame\Temp\bin\Debug\WarlikeStonesCore.dll
