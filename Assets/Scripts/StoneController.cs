@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using WarlikeStonesCore.Objects;
 
 public class StoneController : MonoBehaviour {
 
    Transform myTransform;
 
-   public int posX;
-   public int posY;
+   //Камень, за который отвечает контроллер
+   public Stone stone;
 
 	// Use this for initialization
 	void Start () {

@@ -75,5 +75,10 @@ namespace WarlikeStonesCore.Objects.Fileds
 
          return count;
       }
+
+      public Stone GetStone(int x, int y)
+      {
+         return stones[x, y];
+      }
    }
 }
