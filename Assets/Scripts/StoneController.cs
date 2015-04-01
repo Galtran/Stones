@@ -6,6 +6,8 @@ public class StoneController : MonoBehaviour {
 
    Transform myTransform;
 
+   MainController mainController;
+
    //Камень, за который отвечает контроллер
    public Stone stone;
 
@@ -21,7 +23,7 @@ public class StoneController : MonoBehaviour {
 
    void OnMouseEnter()
    {
-      myTransform.localScale = new Vector3( 2, 2, 2 );
+      myTransform.localScale = new Vector3( 1.1f, 1.1f, 1.1f );
    }
 
    void OnMouseExit()
@@ -31,6 +33,12 @@ public class StoneController : MonoBehaviour {
 
    void OnMouseDown()
    {
-      //myTransform.localScale = new Vector3( 2, 2, 2 );
+      stone.Selected = !stone.Selected;
+      mainController.SelectStone( stone );
+   }
+
+   public void SetMainComntroller( MainController controller )
+   {
+      mainController = controller;
    }
 }

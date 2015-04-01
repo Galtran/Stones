@@ -2,6 +2,7 @@
 using System.Collections;
 using WarlikeStonesCore.Objects.Sequence;
 using Assets.Objects;
+using WarlikeStonesCore.Objects;
 
 public class MainController : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class MainController : MonoBehaviour
    public Sprite blueSprite;
    public Sprite yellowSprite;
 
-   // Use this for initialization
+   // Use this for initialization   
    void Awake()
    {
       field = new QuadrFieldVisual(6, 5);
@@ -49,26 +50,29 @@ public class MainController : MonoBehaviour
      */
 
       float start_pos_x = topLeft.x;
-      float start_pos_y = topLeft.y + 3;
+      float start_pos_y = topLeft.y;
 
       for( int i = 0; i < field.sizeX; i++ )
          for( int k = 0; k < field.sizeY; k++ )
       {
-         GameObject new_stone = (GameObject)Instantiate(stoneTemplate, new Vector3((float)(i * 1.2) + start_pos_x, (float)(k * 1.2) + start_pos_y, 0), Quaternion.identity);
+         GameObject new_stone = (GameObject)Instantiate(stoneTemplate, new Vector3((float)(i * 1.2) + start_pos_x + 0.5f, (float)(k * 1.2) - start_pos_y, 0), Quaternion.identity);
          new_stone.GetComponent<SpriteRenderer>().sprite = SpriteByType(field.stones[i, k].TypeStone);
 
          new_stone.GetComponent<StoneController>().stone = field.stones[i, k];
+         new_stone.GetComponent<StoneController>().SetMainComntroller( this );
+
+         field.SetObjectStone( i, k, new_stone );
       }
 
       sequence = new SimpleListSequence();
       sequence.Generate();
 
-      start_pos_x = topLeft.x;
+      start_pos_x = topLeft.x + 0.5f;
 
       var seq_stones = sequence.GetSequence( 8 );
       for (int i = 0; i < seq_stones.Count; i++)
       {
-         GameObject new_stone = (GameObject)Instantiate(stoneTemplate, new Vector3((float)(i * 1.2) + start_pos_x, 0, 0), Quaternion.identity);
+         GameObject new_stone = (GameObject)Instantiate( stoneTemplate, new Vector3( (float)( i * 1.2 ) + start_pos_x, topLeft.y - 0.5f, 0 ), Quaternion.identity );
          new_stone.GetComponent<SpriteRenderer>().sprite = SpriteByType(seq_stones[i].TypeStone);
          new_stone.GetComponent<StoneController>().stone = seq_stones[i];
       }
@@ -78,6 +82,12 @@ public class MainController : MonoBehaviour
    void Update()
    {
 
+   }
+
+   public void SelectStone( Stone selected_stone )
+   {
+      GameObject selected_obj = field.FindObjecByStone( selected_stone );
+      selected_obj.GetComponent<SpriteRenderer>().color = selected_stone.Selected ? Color.grey : Color.white;
    }
 
    Sprite SpriteByType(WarlikeStonesCore.Objects.Constants.StoneType type)

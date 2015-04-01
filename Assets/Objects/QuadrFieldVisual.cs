@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using WarlikeStonesCore.Objects.Fileds;
 using UnityEngine;
+using WarlikeStonesCore.Objects;
+using WarlikeStonesCore.Objects.Stones;
 
 namespace Assets.Objects
 {
@@ -21,6 +23,12 @@ namespace Assets.Objects
       public void SetObjectStone(int x, int y, GameObject obj)
       {
          objectStones[x, y] = obj;
+      }
+
+      public GameObject FindObjecByStone( Stone stone )
+      {
+         QuadrStone q_stone = (QuadrStone)stone;
+         return objectStones[q_stone.X, q_stone.Y];
       }
 
 	}
