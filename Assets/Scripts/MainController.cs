@@ -56,9 +56,9 @@ public class MainController : MonoBehaviour
          for( int k = 0; k < field.sizeY; k++ )
       {
          GameObject new_stone = (GameObject)Instantiate(stoneTemplate, new Vector3((float)(i * 1.2) + start_pos_x + 0.5f, (float)(k * 1.2) - start_pos_y, 0), Quaternion.identity);
-         new_stone.GetComponent<SpriteRenderer>().sprite = SpriteByType(field.stones[i, k].TypeStone);
+         new_stone.GetComponent<SpriteRenderer>().sprite = SpriteByType(field.GetStone(i, k).TypeStone);
 
-         new_stone.GetComponent<StoneController>().stone = field.stones[i, k];
+         new_stone.GetComponent<StoneController>().stone = field.GetStone(i, k);
          new_stone.GetComponent<StoneController>().SetMainComntroller( this );
 
          field.SetObjectStone( i, k, new_stone );
@@ -88,6 +88,35 @@ public class MainController : MonoBehaviour
    {
       GameObject selected_obj = field.FindObjecByStone( selected_stone );
       selected_obj.GetComponent<SpriteRenderer>().color = selected_stone.Selected ? Color.grey : Color.white;
+
+      Stone next_stone = sequence.GetNextStone();
+      if (!(next_stone.TypeStone == selected_stone.TypeStone && field.SafeSelectStone(selected_stone)))
+         sequence.ReduceByOneNextStone();
+
+
+      if (field.GetSelectedStones().Count > 2)
+      {
+         System.Console.WriteLine("Clear:");
+         sequence.DeleteStones(field.GetSelectedStones().Count);
+         field.DeleteSelectStones();
+
+         if (field.NeedRecalcSprite)
+            RecalcSprite();
+      }
+   }
+
+   private void RecalcSprite()
+   {
+      for (int i = 0; i < field.sizeX; i++)
+         for (int k = 0; k < field.sizeY; k++)
+         {
+            SpriteRenderer tmp_obj_sprite_renderer = field.GetObjectStone(i, k).GetComponent<SpriteRenderer>();
+            if (tmp_obj_sprite_renderer.sprite == null)
+               tmp_obj_sprite_renderer.sprite = SpriteByType(field.GetStone(i, k).TypeStone);
+
+         }
+
+      field.NeedRecalcSprite = false;
    }
 
    Sprite SpriteByType(WarlikeStonesCore.Objects.Constants.StoneType type)

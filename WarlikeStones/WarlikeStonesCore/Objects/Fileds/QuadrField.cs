@@ -67,6 +67,7 @@ namespace WarlikeStonesCore.Objects.Fileds
          foreach (var item in selectStones)
          {
             QuadrStone tmp_stone = (QuadrStone)item;
+            item.Deleted = true;
 
             Stone new_stone = ObjectUtils.GenerateRandomStone(Constants.rnd);
             stones[tmp_stone.X, tmp_stone.Y] = new QuadrStone(new_stone.TypeStone, tmp_stone.X, tmp_stone.Y);

@@ -24,6 +24,14 @@ namespace WarlikeStonesCore.Objects
          set { isSelected = value; }
       }
 
+      //Удален ли
+      private bool isDeleted;
+      public bool Deleted
+      {
+         get { return isDeleted; }
+         set { isDeleted = value; }
+      }
+
       public Stone(Constants.StoneType type)
       {
          typeStone = type;
