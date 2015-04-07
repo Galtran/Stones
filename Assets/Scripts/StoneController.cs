@@ -33,8 +33,8 @@ public class StoneController : MonoBehaviour {
 
    void OnMouseDown()
    {
-      stone.Selected = !stone.Selected;
-      mainController.SelectStone( stone );
+      if (!stone.Selected && mainController.SelectStone(stone))
+         stone.Selected = !stone.Selected;
    }
 
    public void SetMainComntroller( MainController controller )

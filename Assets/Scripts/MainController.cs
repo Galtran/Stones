@@ -17,6 +17,8 @@ public class MainController : MonoBehaviour
    public Sprite blueSprite;
    public Sprite yellowSprite;
 
+   bool needDeleteStones = false;
+
    // Use this for initialization   
    void Awake()
    {
@@ -81,28 +83,35 @@ public class MainController : MonoBehaviour
    // Update is called once per frame
    void Update()
    {
+      if (needDeleteStones)
+      {
+         if (field.GetSelectedStones().Count > 2)
+         {
+            Debug.Log("Clear!!");
+            sequence.DeleteStones(field.GetSelectedStones().Count);
+            field.DeleteSelectStones();
 
+            if (field.NeedRecalcSprite)
+               RecalcSprite();
+         }
+
+         needDeleteStones = false;
+      }
    }
 
-   public void SelectStone( Stone selected_stone )
+   public bool SelectStone( Stone selected_stone )
    {
       GameObject selected_obj = field.FindObjecByStone( selected_stone );
       selected_obj.GetComponent<SpriteRenderer>().color = selected_stone.Selected ? Color.grey : Color.white;
 
       Stone next_stone = sequence.GetNextStone();
-      if (!(next_stone.TypeStone == selected_stone.TypeStone && field.SafeSelectStone(selected_stone)))
+      bool is_select = (next_stone.TypeStone == selected_stone.TypeStone && field.SafeSelectStone(selected_stone));
+      if (!is_select)
          sequence.ReduceByOneNextStone();
+      
+      needDeleteStones = true;
 
-
-      if (field.GetSelectedStones().Count > 2)
-      {
-         System.Console.WriteLine("Clear:");
-         sequence.DeleteStones(field.GetSelectedStones().Count);
-         field.DeleteSelectStones();
-
-         if (field.NeedRecalcSprite)
-            RecalcSprite();
-      }
+      return is_select;
    }
 
    private void RecalcSprite()
